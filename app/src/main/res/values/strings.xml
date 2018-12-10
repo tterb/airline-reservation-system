@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Airline Ticket Reservation System</string>
+    <string name="create_account">Create an Account</string>
+    <string name="reserve_seat">Reserve a Seat</string>
+    <string name="cancel_seat">Cancel Reservation</string>
+    <string name="manage_system">Manage System</string>
+    <string name="transactions">Transactions</string>
+    <string name="add_flight">Add Flight</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="submit">Submit</string>
+    <string name="search">Search</string>
+    <string name="login">Login</string>
+    <string-array name="departure_array">
+        <item>Monterey</item>
+        <item>Los Angeles</item>
+        <item>Seattle</item>
+    </string-array>
+    <string-array name="arrival_array">
+        <item>Monterey</item>
+        <item>Los Angeles</item>
+        <item>Seattle</item>
+    </string-array>
+    <string name="title_activity_login">Login</string>
+    <!-- Strings related to login -->
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This username is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <!-- Strings for flight listview -->
+    <string name="list_id">ID</string>
+    <string name="list_departure">Departure</string>
+    <string name="list_arrival">Arrival</string>
+    <string name="list_time">Time</string>
+    <string name="list_price">Price</string>
+</resources>

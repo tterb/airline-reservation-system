@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<color name="colorPrimary">#008577</color>-->  <!-- Dark Green -->
+    <!--<color name="colorPrimaryDark">#00574B</color>-->
+    <color name="colorPrimary">#5089DF</color>  <!-- Blue -->
+    <color name="colorPrimaryDark">#3E52AE</color>
+    <color name="colorSecondary">#4FB0CD</color>  <!-- Cyan -->
+    <color name="colorSecondaryDark">#307991</color>
+    <color name="colorAccent">#67AC5B</color>  <!-- Green -->
+    <color name="colorAccentDark">#377020</color>
+    <!--<color name="colorSecondary">#6186DC</color>-->
+    <!--<color name="colorSecondaryDark">#1166BC</color>-->
+    <color name="colorError">#A82E25</color>  <!-- Red -->
+    <color name="colorErrorDark">#782520</color>
+    <!--<color name="colorAccent">#F39C38</color>  &lt;!&ndash; Orange &ndash;&gt;-->
+    <!--<color name="colorAccentDark">#D36C28</color>-->
+    <!--<color name="colorAccent">#D81B60</color>  &lt;!&ndash; Magenta &ndash;&gt;-->
+    <color name="colorCell">#EEEFF6</color>
+    <color name="white">#FFFFFF</color>
+</resources>

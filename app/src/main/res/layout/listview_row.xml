@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id = "@+id/relativeLayout1"
+    android:layout_width = "fill_parent"
+    android:layout_height = "wrap_content"
+    android:background = "@color/colorCell" >
+
+    <TextView
+        android:id = "@+id/hidden_id"
+        android:background = "@drawable/cell_shape"
+        android:visibility="gone"
+        android:layout_width = "0dp"
+        android:layout_height = "match_parent"
+        android:layout_weight = "1.5"
+        android:text = "@string/list_id"
+        android:textSize="10dp"
+        android:ellipsize = "end"
+        android:padding = "8dp"
+        android:singleLine = "true" />
+
+    <TextView
+        android:id = "@+id/list_id"
+        android:background = "@drawable/cell_shape"
+        android:layout_width = "0dp"
+        android:layout_height = "match_parent"
+        android:layout_weight = "1.5"
+        android:text = "@string/list_id"
+        android:textSize="10dp"
+        android:ellipsize = "end"
+        android:padding = "9dp"
+        android:singleLine = "true" />
+
+    <TextView
+        android:id = "@+id/list_departure"
+        android:background = "@drawable/cell_shape"
+        android:layout_width = "0dp"
+        android:layout_height = "match_parent"
+        android:layout_weight = "1.75"
+        android:text = "@string/list_departure"
+        android:textSize="11dp"
+        android:ellipsize = "end"
+        android:padding = "8dp"
+        android:singleLine = "true" />
+
+    <TextView
+        android:id = "@+id/list_arrival"
+        android:background = "@drawable/cell_shape"
+        android:layout_width = "0dp"
+        android:layout_height = "match_parent"
+        android:layout_weight = "1.75"
+        android:text = "@string/list_arrival"
+        android:textSize="11dp"
+        android:ellipsize = "end"
+        android:padding = "8dp"
+        android:singleLine = "true" />
+
+    <TextView
+        android:id = "@+id/list_time"
+        android:background = "@drawable/cell_shape"
+        android:layout_width = "0dp"
+        android:layout_height = "match_parent"
+        android:layout_weight = "1.5"
+        android:text = "@string/list_time"
+        android:textSize="11dp"
+        android:ellipsize = "end"
+        android:padding = "8dp"
+        android:singleLine = "true" />
+
+    <TextView
+        android:id = "@+id/list_price"
+        android:background = "@drawable/cell_shape"
+        android:layout_width = "0dp"
+        android:layout_height = "match_parent"
+        android:layout_weight = "1.25"
+        android:gravity = "right"
+        android:text = "@string/list_price"
+        android:textSize="11dp"
+        android:ellipsize = "end"
+        android:paddingTop = "10dp"
+        android:paddingBottom = "10dp"
+        android:paddingLeft = "4dp"
+        android:paddingRight = "8dp"
+        android:singleLine = "true" />
+
+    <TextView
+        android:id = "@+id/seat_count"
+        android:background = "@drawable/cell_shape"
+        android:visibility="gone"
+        android:layout_width = "0dp"
+        android:layout_height = "match_parent"
+        android:layout_weight = "1"
+        android:text = "1"
+        android:textSize="10dp"
+        android:ellipsize = "end"
+        android:padding = "8dp"
+        android:singleLine = "true" />
+
+</LinearLayout>

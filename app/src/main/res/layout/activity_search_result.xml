@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context=".SearchResultActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Matching Flights"
+        android:textSize="30sp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.245" />
+
+    <ListView
+        android:id="@+id/flight_results"
+        android:layout_width="375dp"
+        android:layout_height="wrap_content"
+        android:choiceMode="singleChoice"
+        android:layout_gravity="center"
+        android:textSize="11sp"
+        android:divider = "#DDD"
+        android:dividerHeight="1dp"
+        android:layout_marginTop="25dp" />
+
+    <TextView
+        android:layout_width = "0dp"
+        android:layout_height = "wrap_content"
+        android:layout_weight = "1.5"
+        android:gravity = "center"
+        android:padding = "5dp"
+        android:text = "@string/list_id"
+        android:textColor = "#fff" />
+
+    <TextView
+        android:layout_width = "0dp"
+        android:layout_height = "wrap_content"
+        android:layout_weight = "2"
+        android:gravity = "center"
+        android:padding = "5dp"
+        android:text = "@string/list_departure"
+        android:textColor = "#fff" />
+
+    <TextView
+        android:layout_width = "0dp"
+        android:layout_height = "wrap_content"
+        android:layout_weight = "2"
+        android:gravity = "center"
+        android:padding = "5dp"
+        android:text = "@string/list_arrival"
+        android:textColor = "#fff" />
+
+    <TextView
+        android:layout_width = "0dp"
+        android:layout_height = "wrap_content"
+        android:layout_weight = "1.5"
+        android:gravity = "center"
+        android:padding = "5dp"
+        android:text = "@string/list_time"
+        android:textColor = "#fff" />
+
+    <TextView
+        android:layout_width = "0dp"
+        android:layout_height = "wrap_content"
+        android:layout_weight = "1.5"
+        android:gravity = "right"
+        android:padding = "5dp"
+        android:text = "@string/list_price"
+        android:textColor = "#fff" />
+
+</LinearLayout>
