@@ -49,9 +49,6 @@ public class AirlineCursorWrapper  extends CursorWrapper {
     }
 
     public String getTransaction() {
-        int id = getInt(getColumnIndex(AirlineDbSchema.TransactionTable.Cols.ID));
-//        String type = getString(getColumnIndex(AirlineDbSchema.TransactionTable.Cols.TYPE));
-//        String username = getString(getColumnIndex(AirlineDbSchema.TransactionTable.Cols.USERNAME));
         String contents = getString(getColumnIndex(AirlineDbSchema.TransactionTable.Cols.CONTENTS));
         return contents;
     }

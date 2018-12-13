@@ -9,11 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 import com.example.brettstevenson.airlineticketreservationsystem.Customer;
-import com.example.brettstevenson.airlineticketreservationsystem.CustomerList;
 import com.example.brettstevenson.airlineticketreservationsystem.Flight;
-import com.example.brettstevenson.airlineticketreservationsystem.FlightList;
 import com.example.brettstevenson.airlineticketreservationsystem.Reservation;
-import com.example.brettstevenson.airlineticketreservationsystem.ReservationList;
 import com.example.brettstevenson.airlineticketreservationsystem.Transaction;
 
 public class AirlineHelper extends SQLiteOpenHelper {
@@ -150,11 +147,6 @@ public class AirlineHelper extends SQLiteOpenHelper {
         try {
             cursor.moveToFirst();
             while(!cursor.isAfterLast()) {
-//                Customer customer = cursor.getCustomer();
-//                HashMap<Integer, Reservation> reservations = translateReservationString(customer.getReservationString());
-//                for(int res : reservations.keySet())
-//                    customer.addReservation(reservations.get(res));
-//                customers.put(customer.getUsername(), customer);
                 customers.put(cursor.getCustomer().getUsername(), cursor.getCustomer());
                 cursor.moveToNext();
             }
@@ -281,9 +273,6 @@ public class AirlineHelper extends SQLiteOpenHelper {
             while(!cursor.isAfterLast()) {
                 Reservation reservation = cursor.getReservation(getFlights());
                 reservations.put(reservation.getId(), reservation);
-//                Customer customer = reservation.getCustomer();
-//                customer.addReservation(reservation);
-//                updateCustomer(customer.getId().toString(), customer);
                 cursor.moveToNext();
             }
         } finally {
@@ -293,26 +282,6 @@ public class AirlineHelper extends SQLiteOpenHelper {
         return reservations;
     }
 
-//    public HashMap<Integer, Reservation> getReservations(FlightList flightList) {
-//        HashMap<Integer, Reservation> reservations = new HashMap<>();
-//        AirlineCursorWrapper cursor = new AirlineCursorWrapper(this.queryReservationsDB(AirlineDbSchema.ReservationTable.NAME, null,null));
-//        try {
-//            cursor.moveToFirst();
-//            while(!cursor.isAfterLast()) {
-//                Reservation reservation = cursor.getReservation(flightList.getFlights());
-//                reservations.put(reservation.getId(), reservation);
-////                Customer customer = reservation.getCustomer();
-////                customer.addReservation(reservation);
-////                updateCustomer(customer.getId().toString(), customer);
-//                cursor.moveToNext();
-//            }
-//        } finally {
-//            if(cursor != null)
-//                cursor.close();
-//        }
-//        return reservations;
-//    }
-
     public long insertTransaction(Transaction transaction) {
         ContentValues cv = new ContentValues();
         // cv.put(AirlineDbSchema.TransactionTable.Cols.ID, transaction.getId());
@@ -321,18 +290,6 @@ public class AirlineHelper extends SQLiteOpenHelper {
         // name of the table, nullColumnHack, data to add
         return db.insert(AirlineDbSchema.TransactionTable.NAME, null, cv);
     }
-
-//    public boolean updateTransaction(int id, ContentValues values) {
-//        try {
-//            db = this.getWritableDatabase();
-//            db.update(AirlineDbSchema.TransactionTable.NAME, values, AirlineDbSchema.TransactionTable.Cols.ID + " = ?",
-//                    new String[]{ Integer.toString(id) });
-//            // prevent SQL injection!
-//            return true;
-//        } catch (Exception e) {
-//            return false;
-//        }
-//    }
 
     public Cursor queryTransactionsDB(String DBName, String whereClause, String[] whereArgs) {
         db = this.getWritableDatabase();

@@ -10,11 +10,11 @@ import java.util.ArrayList;
 
 public class TransactionList {
 
+    private static TransactionList sTransaction;
     private Context mContext;
     private SQLiteDatabase mDatabase;
     private AirlineHelper mAirlineHelper;
     private ArrayList<String> mTransactions;
-    private static TransactionList sTransaction;
 
     public static TransactionList get(Context context) {
         if(sTransaction == null)

@@ -19,7 +19,6 @@ import java.text.NumberFormat;
 public class AddFlightActivity extends AppCompatActivity {
 
     private static final String TAG =  "AirlineDemo";
-    private static int attemptCount = 0;
     private FlightList flightList;
     private CustomerList customerList;
     private TransactionList transactionList;
@@ -45,10 +44,12 @@ public class AddFlightActivity extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
                         String amPm;
-                        if (hourOfDay >= 12)
+                        if (hourOfDay >= 12) {
+                            hourOfDay -= 12;
                             amPm = "PM";
-                        else
+                        } else {
                             amPm = "AM";
+                        }
                         timeInput.setText(String.format("%2d:%02d", hourOfDay, minutes) + amPm);
                     }
                 }, 0, 0, false);
@@ -58,7 +59,6 @@ public class AddFlightActivity extends AppCompatActivity {
         addFlight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptCount++;
                 boolean hasError = false;
                 EditText flightNumInput = findViewById(R.id.flight_num_input);
                 Spinner departures = findViewById(R.id.departure_spinner);
@@ -74,7 +74,7 @@ public class AddFlightActivity extends AppCompatActivity {
                         || priceInput.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "You must populate all entries", Toast.LENGTH_SHORT).show();
                     hasError = true;
-                } else if(flightList.getFlight(flightNum) != null) {
+                } else if(flightList.getFlight(flightNum.toLowerCase()) != null) {
                     Toast.makeText(getApplicationContext(), "Flight number is already taken", Toast.LENGTH_SHORT).show();
                     flightNumInput.setText("");
                     hasError = true;
@@ -86,8 +86,8 @@ public class AddFlightActivity extends AppCompatActivity {
                     double price = Double.parseDouble(priceInput.getText().toString());
                     displayConfirmation(new Flight(flightNum, origin, destination, time, price, capacity));
                 }
-                if(hasError && attemptCount > 2) {
-                    startActivity(new Intent(getBaseContext(), MainActivity.class));
+                if(hasError) {
+                    displayErrorDialog();
                 }
             }
         });
@@ -108,6 +108,21 @@ public class AddFlightActivity extends AppCompatActivity {
         arrivals.setAdapter(adapterB);
     }
 
+    public void displayErrorDialog() {
+        Log.d(TAG, "Error: Invalid flight info");
+        AlertDialog errorMsg  = new AlertDialog.Builder(this).create();
+        errorMsg.setTitle("Oops");
+        errorMsg.setCancelable(false);
+        errorMsg.setMessage("The provided flight information is not valid.");
+        errorMsg.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(getBaseContext(), MainActivity.class));
+                dialog.dismiss();
+            }
+        });
+        errorMsg.show();
+    }
+
     public void displayConfirmation(Flight targetFlight) {
         final Flight flight = targetFlight;
         AlertDialog confDialog = new AlertDialog.Builder(this).create();
@@ -120,10 +135,8 @@ public class AddFlightActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 Log.d(TAG, "Flight addition confirmed!");
                 flightList.addFlight(flight);
-//                Transaction transaction = new NewFlight(customer.getUsername(), flight);
                 transactionList.addTransaction(new NewFlight(customer.getUsername(), flight));
-                Intent intent = new Intent(getBaseContext(), ManageSystemActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(getBaseContext(), MainActivity.class));
             }
         });
         confDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {

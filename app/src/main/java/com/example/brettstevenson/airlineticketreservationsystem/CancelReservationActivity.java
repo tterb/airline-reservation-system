@@ -57,6 +57,8 @@ public class CancelReservationActivity extends AppCompatActivity {
             listViewAdapter adapter = new listViewAdapter(this, flights, reservationIds, seatCounts);
             listView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
+        } else {
+            displayErrorDialog();
         }
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -66,6 +68,21 @@ public class CancelReservationActivity extends AppCompatActivity {
                 displayConfirmation(reservations.get(reservationId));
             }
         });
+    }
+
+    public void displayErrorDialog() {
+        Log.d(TAG, "Error: No reservations for username");
+        AlertDialog errorMsg  = new AlertDialog.Builder(this).create();
+        errorMsg.setTitle("Oops");
+        errorMsg.setCancelable(false);
+        errorMsg.setMessage("There are no reservations for this username.");
+        errorMsg.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(getBaseContext(), MainActivity.class));
+                dialog.dismiss();
+            }
+        });
+        errorMsg.show();
     }
 
     // TODO: Should display reservation price

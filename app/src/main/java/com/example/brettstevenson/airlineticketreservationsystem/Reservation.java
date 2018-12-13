@@ -24,7 +24,7 @@ public class Reservation extends Transaction {
     }
     // Only called on reservation cancellation
     public Reservation(Reservation res) {
-        super("Cancel Reservation", res.getCustomer());
+        super("Cancellation", res.getCustomer());
         this.id = res.getId();
         this.customer = res.getCustomer();
         this.flight = res.getFlight();

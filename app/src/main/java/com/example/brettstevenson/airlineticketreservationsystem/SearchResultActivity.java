@@ -9,13 +9,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.brettstevenson.airlineticketreservationsystem.Database.AirlineHelper;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -63,6 +60,8 @@ public class SearchResultActivity extends Activity {
             listViewAdapter adapter = new listViewAdapter(this, matches, flightIds);
             listView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
+        } else {
+            displayErrorDialog();
         }
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -74,7 +73,6 @@ public class SearchResultActivity extends Activity {
         });
     }
 
-    // TODO: Check seat count is not too large
     public void displaySeatCountDialog(Flight targetFlight) {
         final Flight flight = targetFlight;
         AlertDialog countDialog = new AlertDialog.Builder(this).create();
@@ -89,14 +87,14 @@ public class SearchResultActivity extends Activity {
             public void onClick(DialogInterface dialog, int which) {
                 try {
                     int count = Integer.parseInt(seatCountInput.getText().toString());
-                    if(count > 0 && count < flight.getSeats()) {
-                        displayConfirmation(flight, count);
-                    } else if(count > flight.getSeats()) {
+                    if(count > flight.getSeats()) {
                         dialog.dismiss();
                         Toast.makeText(SearchResultActivity.this, "There are not enough remaining seats", Toast.LENGTH_LONG).show();
-                    } else {
+                    } else if(count < 0 || count > 9) {
                         dialog.dismiss();
                         Toast.makeText(SearchResultActivity.this, "Invalid ticket count", Toast.LENGTH_SHORT).show();
+                    } else {
+                        displayConfirmation(flight, count);
                     }
                 } catch(Exception e) {
                     dialog.dismiss();
@@ -110,6 +108,21 @@ public class SearchResultActivity extends Activity {
             }
         });
         countDialog.show();
+    }
+
+    public void displayErrorDialog() {
+        Log.d(TAG, "Error: No matching flights");
+        AlertDialog errorMsg  = new AlertDialog.Builder(this).create();
+        errorMsg.setTitle("Oops");
+        errorMsg.setCancelable(false);
+        errorMsg.setMessage("There are no matching flights.");
+        errorMsg.setButton(AlertDialog.BUTTON_NEUTRAL, "Exit", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(getBaseContext(), MainActivity.class));
+                dialog.dismiss();
+            }
+        });
+        errorMsg.show();
     }
 
     // TODO: Second reservation is not being logged
@@ -146,10 +159,29 @@ public class SearchResultActivity extends Activity {
         });
         confDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                Log.d(TAG, "Reservation cancelled!");
-                dialog.dismiss();
+                confirmCancellation();
             }
         });
         confDialog.show();
+    }
+
+    public void confirmCancellation() {
+        AlertDialog cancelDialog = new AlertDialog.Builder(this).create();
+        cancelDialog.setTitle("Are you sure?");
+        cancelDialog.setMessage("Are you sure that you want to cancel the reservation?");
+        cancelDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Confirm", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d(TAG, "Reservation cancelled!");
+                startActivity(new Intent(getBaseContext(), MainActivity.class));
+                Toast.makeText(getApplicationContext(), "Reservation Cancelled", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+        cancelDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        cancelDialog.show();
     }
 }

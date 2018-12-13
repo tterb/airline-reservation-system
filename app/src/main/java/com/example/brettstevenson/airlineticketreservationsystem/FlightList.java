@@ -27,6 +27,7 @@ public class FlightList {
         mContext = context.getApplicationContext();
         mDatabase = new AirlineHelper(mContext).getWritableDatabase();
         mAirlineHelper = new AirlineHelper(mContext);
+        // Loading flights here since the SQLite wouldn't work
         Flight[] flights = { new Flight("otter101", "Monterey", "Los Angeles", "10:00 AM", 150.00, 10),
                              new Flight("otter102", "Los Angeles", "Monterey", "1:00 PM", 150.00, 10),
                              new Flight("otter201", "Monterey", "Seattle", "11:00 AM", 200.50, 5),

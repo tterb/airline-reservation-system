@@ -16,8 +16,8 @@ public class CreateAccountActivity extends Activity implements OnClickListener {
 
     private static final String TAG =  "AirlineDemo";
     private CustomerList customerList;
-    private HashMap<String, Customer> customers;
     private TransactionList transactionList;
+    private HashMap<String, Customer> customers;
     private static int attemptCount = 0;
 
     @Override
@@ -28,8 +28,6 @@ public class CreateAccountActivity extends Activity implements OnClickListener {
         customerList = CustomerList.get(this);
         customers = customerList.getCustomers();
         transactionList = TransactionList.get(this);
-//        ArrayList<String> transactions = transactionList.getTransactions();
-        // Set up a click listener for the "Submit" primary_button.
         View submitAccountButton = findViewById(R.id.submit_account_button);
         submitAccountButton.setOnClickListener(this);
     }
@@ -54,13 +52,15 @@ public class CreateAccountActivity extends Activity implements OnClickListener {
                 Toast.makeText(getApplicationContext(), "Account Created", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getBaseContext(), MainActivity.class));
             } else {
-                displayInputError(v);
+                String msg;
+                if(isValid(username) && isValid(password))
+                    msg = "The provided username is already in use.";
+                else
+                    msg = "The username and/or password you entered are not in the correct format.";
+                displayInputError(msg);
                 username_input.setText("");
                 password_input.setText("");
                 confirmation_input.setText("");
-                if(attemptCount > 1) {
-                    startActivity(new Intent(getBaseContext(), MainActivity.class));
-                }
             }
         }
     }
@@ -86,22 +86,18 @@ public class CreateAccountActivity extends Activity implements OnClickListener {
         return (charCount >= 3 && numCount >= 1);
     }
 
-    public void displayInputError(View v) {
+    public void displayInputError(String msg) {
         attemptCount++;
         Log.d(TAG, "Error in account info. Attempt: "+attemptCount);
         AlertDialog errorMsg  = new AlertDialog.Builder(this).create();
         errorMsg.setTitle("Oops");
         errorMsg.setCancelable(false);
-        if(attemptCount < 2) {
-            errorMsg.setMessage("The username and/or password you entered are not in the correct format.\nPlease try again.");
-        } else {
-            errorMsg.setMessage("The username and/or password you entered are not in the correct format.");
-        }
+        if(attemptCount < 2)
+            msg += "\nPlease try again.";
+        errorMsg.setMessage(msg);
         errorMsg.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                attemptCount++;
-                if(attemptCount > 1) {
-//                    CreateAccountActivity.super.onBackPressed();
+                if(attemptCount >= 2) {
                     startActivity(new Intent(getBaseContext(), MainActivity.class));
                     dialog.dismiss();
                 }

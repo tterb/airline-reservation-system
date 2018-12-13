@@ -12,6 +12,7 @@ import com.example.brettstevenson.airlineticketreservationsystem.Database.Airlin
 import com.example.brettstevenson.airlineticketreservationsystem.Database.AirlineHelper;
 
 public class CustomerList {
+
     private static CustomerList sCustomer;
     private Context mContext;
     private SQLiteDatabase mDatabase;
@@ -28,6 +29,7 @@ public class CustomerList {
         mContext = context.getApplicationContext();
         mDatabase = new AirlineHelper(mContext).getWritableDatabase();
         mAirlineHelper = new AirlineHelper(mContext);
+        // Loading customers here since the SQLite wouldn't work
         Customer[] customers = { new Customer("alice5", "csumb100", false),
                                  new Customer("brian77", "123ABC", false),
                                  new Customer("chris21", "CHRIS21", false),
