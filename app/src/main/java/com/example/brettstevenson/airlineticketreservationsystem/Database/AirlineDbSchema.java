@@ -23,6 +23,7 @@ public class AirlineDbSchema {
             public static final String TIME       = "time";
             public static final String PRICE      = "price";
             public static final String CAPACITY   = "capacity";
+            public static final String SEATS      = "seats";
         }
     }
 
@@ -41,8 +42,6 @@ public class AirlineDbSchema {
         public static final String NAME = "TRANSACTIONS";
         public static final class Cols {
             public static final String ID         = "id";
-//            public static final String TYPE       = "type";
-//            public static final String USERNAME   = "username";
             public static final String CONTENTS   = "contents";
         }
     }
