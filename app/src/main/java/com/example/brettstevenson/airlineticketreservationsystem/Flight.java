@@ -12,7 +12,6 @@ public class Flight {
     private double price;
     private int capacity;
     private int seats;
-//    private HashMap<Integer, Reservation> reservations = new HashMap<>();
 
     public Flight(String id, String departure, String arrival, String time, double price, int capacity, int seats) {
         this.id = id;
@@ -67,9 +66,4 @@ public class Flight {
     public int getSeats() { return this.seats; }
     public void addSeats(int count) { this.seats += count; }
     public void reserveSeats(int count) { this.seats -= count; }
-
-//    public void addReservation(Reservation reservation) {
-//        reservations.put(reservation.getId(), reservation);
-//        reservation.setFlight(this);
-//    }
 }

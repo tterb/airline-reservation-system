@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import com.example.brettstevenson.airlineticketreservationsystem.Database.AirlineHelper;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,6 +32,8 @@ public class TransactionsActivity extends AppCompatActivity {
             ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, transactions);
             listView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(getApplicationContext(), "No transactions to display", Toast.LENGTH_SHORT).show();
         }
     }
 }

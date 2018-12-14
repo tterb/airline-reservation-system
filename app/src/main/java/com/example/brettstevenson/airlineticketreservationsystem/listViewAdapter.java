@@ -34,12 +34,6 @@ public class listViewAdapter extends BaseAdapter {
         this(activity, flightList, new ArrayList<String>());
     }
 
-//    public listViewAdapter(Activity activity, ArrayList<Reservation> reservationList) {
-//        super();
-//        this.activity = activity;
-//        this.reservationList = reservationList;
-//    }
-
     @Override
     public int getCount() { return flightList.size(); }
 

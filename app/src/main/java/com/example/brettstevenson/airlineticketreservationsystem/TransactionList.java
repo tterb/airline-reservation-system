@@ -2,7 +2,6 @@ package com.example.brettstevenson.airlineticketreservationsystem;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import com.example.brettstevenson.airlineticketreservationsystem.Database.AirlineCursorWrapper;
 import com.example.brettstevenson.airlineticketreservationsystem.Database.AirlineDbSchema;
 import com.example.brettstevenson.airlineticketreservationsystem.Database.AirlineHelper;
@@ -12,7 +11,6 @@ public class TransactionList {
 
     private static TransactionList sTransaction;
     private Context mContext;
-    private SQLiteDatabase mDatabase;
     private AirlineHelper mAirlineHelper;
     private ArrayList<String> mTransactions;
 
@@ -24,13 +22,11 @@ public class TransactionList {
 
     private TransactionList(Context context) {
         mContext = context.getApplicationContext();
-        mDatabase = new AirlineHelper(mContext).getWritableDatabase();
         mAirlineHelper = new AirlineHelper(mContext);
         mTransactions = getTransactions();
     }
 
     public void addTransaction(Transaction c) {
-//        ContentValues values = getContentValues(c);
         mAirlineHelper.insertTransaction(c);
     }
 
@@ -57,27 +53,9 @@ public class TransactionList {
         mTransactions = getTransactions();
     }
 
-//    public void updateTransaction(Transaction transaction) {
-//        String id = String.valueOf(transaction.getId());
-//        ContentValues values = getContentValues(transaction);
-//        mAirlineHelper.updateTransaction(id, values);
-//    }
-
-//    public void deleteTransaction(Transaction transaction) {
-//        String id = String.valueOf(transaction.getId());
-//        mAirlineHelper.deleteTransaction(id);
-//    }
-
     @Deprecated // Should call query DB directly from the helper
     private AirlineCursorWrapper queryTransactions(String whereClause, String[] whereArgs) {
         Cursor cursor = mAirlineHelper.queryTransactionsDB(AirlineDbSchema.TransactionTable.NAME, whereClause, whereArgs);
         return new AirlineCursorWrapper(cursor);
     }
-
-//    private static ContentValues getContentValues(Transaction transaction) {
-//        ContentValues values = new ContentValues();
-//        values.put(AirlineDbSchema.TransactionTable.Cols.ID, String.valueOf(transaction.getId()));
-//        values.put(AirlineDbSchema.TransactionTable.Cols.CONTENTS, transaction.toString());
-//        return values;
-//    }
 }

@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import java.util.HashMap;
-import android.database.sqlite.SQLiteDatabase;
 import com.example.brettstevenson.airlineticketreservationsystem.Database.AirlineCursorWrapper;
 import com.example.brettstevenson.airlineticketreservationsystem.Database.AirlineDbSchema;
 import com.example.brettstevenson.airlineticketreservationsystem.Database.AirlineHelper;
@@ -13,7 +12,6 @@ public class ReservationList {
 
     private static ReservationList sReservation;
     private Context mContext;
-    private SQLiteDatabase mDatabase;
     private AirlineHelper mAirlineHelper;
     private HashMap<Integer, Reservation> mReservations;
 
@@ -25,14 +23,11 @@ public class ReservationList {
 
     private ReservationList(Context context) {
         mContext = context.getApplicationContext();
-        mDatabase = new AirlineHelper(mContext).getWritableDatabase();
         mAirlineHelper = new AirlineHelper(mContext);
         mReservations = getReservations();
     }
 
     public void addReservation(Reservation f) {
-        ContentValues values = getContentValues(f);
-//        mDatabase.insert(values);
         mAirlineHelper.insertReservation(f);
     }
 
@@ -55,10 +50,6 @@ public class ReservationList {
             cursor.close();
         }
     }
-
-//    public void updateList(){
-//        mReservations = getReservations();
-//    }
 
     public void updateReservation(Reservation reservation) {
         int id = reservation.getId();

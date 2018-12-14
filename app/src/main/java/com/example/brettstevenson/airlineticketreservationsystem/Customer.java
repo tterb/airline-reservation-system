@@ -55,6 +55,5 @@ public class Customer {
     public String getReservationString() {
         return mReservationString;
     }
-
     public String toString() { return mUsername + " " + mPassword; }
 }

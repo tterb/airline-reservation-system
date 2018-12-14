@@ -3,7 +3,6 @@ package com.example.brettstevenson.airlineticketreservationsystem;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
@@ -15,7 +14,6 @@ public class CustomerList {
 
     private static CustomerList sCustomer;
     private Context mContext;
-    private SQLiteDatabase mDatabase;
     private AirlineHelper mAirlineHelper;
     private HashMap<String, Customer> mCustomers;
 
@@ -27,7 +25,6 @@ public class CustomerList {
 
     private CustomerList(Context context) {
         mContext = context.getApplicationContext();
-        mDatabase = new AirlineHelper(mContext).getWritableDatabase();
         mAirlineHelper = new AirlineHelper(mContext);
         // Loading customers here since the SQLite wouldn't work
         Customer[] customers = { new Customer("alice5", "csumb100", false),
@@ -41,7 +38,6 @@ public class CustomerList {
     }
 
     public void addCustomer(Customer c) {
-//        ContentValues values = getContentValues(c);
         mAirlineHelper.insertCustomer(c);
     }
 

@@ -44,8 +44,6 @@ public class SearchResultActivity extends Activity {
         transactionList = TransactionList.get(this);
         flights = flightList.getFlights();
         customer = customerList.getCustomers().get(username);
-//        customer = customers.get(username);
-//        ArrayList<Flight> matches = getMatchingFlights(origin, destination);
         ArrayList<Flight> matches = new ArrayList<>();
         ArrayList<String> flightIds = new ArrayList<>();
         for(String id : flights.keySet()) {
@@ -73,6 +71,7 @@ public class SearchResultActivity extends Activity {
         });
     }
 
+    // TODO: Allowing more to be tickets to be reserved than are available
     public void displaySeatCountDialog(Flight targetFlight) {
         final Flight flight = targetFlight;
         AlertDialog countDialog = new AlertDialog.Builder(this).create();
@@ -87,7 +86,8 @@ public class SearchResultActivity extends Activity {
             public void onClick(DialogInterface dialog, int which) {
                 try {
                     int count = Integer.parseInt(seatCountInput.getText().toString());
-                    if(count > flight.getSeats()) {
+                    Log.d(TAG, "flight count: "+flightList.getFlight(flight.getId()).getSeats());
+                    if(count > flightList.getFlight(flight.getId()).getSeats()) {
                         dialog.dismiss();
                         Toast.makeText(SearchResultActivity.this, "There are not enough remaining seats", Toast.LENGTH_LONG).show();
                     } else if(count < 0 || count > 9) {
@@ -125,7 +125,6 @@ public class SearchResultActivity extends Activity {
         errorMsg.show();
     }
 
-    // TODO: Second reservation is not being logged
     public void displayConfirmation(Flight target, final int seatCount) {
         final Flight flight = target;
         final double price = flight.getPrice()*seatCount;

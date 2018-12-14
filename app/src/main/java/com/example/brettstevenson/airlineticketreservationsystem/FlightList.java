@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import java.util.HashMap;
-import android.database.sqlite.SQLiteDatabase;
 import com.example.brettstevenson.airlineticketreservationsystem.Database.AirlineCursorWrapper;
 import com.example.brettstevenson.airlineticketreservationsystem.Database.AirlineDbSchema;
 import com.example.brettstevenson.airlineticketreservationsystem.Database.AirlineHelper;
@@ -13,7 +12,6 @@ public class FlightList {
 
     private static FlightList sFlight;
     private Context mContext;
-    private SQLiteDatabase mDatabase;
     private AirlineHelper mAirlineHelper;
     private HashMap<String, Flight> mFlights;
 
@@ -25,14 +23,13 @@ public class FlightList {
 
     private FlightList(Context context) {
         mContext = context.getApplicationContext();
-        mDatabase = new AirlineHelper(mContext).getWritableDatabase();
         mAirlineHelper = new AirlineHelper(mContext);
         // Loading flights here since the SQLite wouldn't work
-        Flight[] flights = { new Flight("otter101", "Monterey", "Los Angeles", "10:00 AM", 150.00, 10),
-                             new Flight("otter102", "Los Angeles", "Monterey", "1:00 PM", 150.00, 10),
-                             new Flight("otter201", "Monterey", "Seattle", "11:00 AM", 200.50, 5),
-                             new Flight("otter202", "Seattle", "Monterey", "2:00 PM", 200.50, 5),
-                             new Flight("otter205", "Monterey", "Seattle", "3:00 PM", 150.00, 15)};
+        Flight[] flights = { new Flight("Otter101", "Monterey", "Los Angeles", "10:00 AM", 150.00, 10),
+                             new Flight("Otter102", "Los Angeles", "Monterey", "1:00 PM", 150.00, 10),
+                             new Flight("Otter201", "Monterey", "Seattle", "11:00 AM", 200.50, 5),
+                             new Flight("Otter202", "Seattle", "Monterey", "2:00 PM", 200.50, 5),
+                             new Flight("Otter205", "Monterey", "Seattle", "3:00 PM", 150.00, 15)};
         for(Flight flight : flights) {
             addFlight(flight);
         }
@@ -40,32 +37,10 @@ public class FlightList {
     }
 
     public void addFlight(Flight f) {
-        ContentValues values = getContentValues(f);
-//        mDatabase.insert(values);
         mAirlineHelper.insertFlight(f);
     }
 
     public HashMap<String, Flight> getFlights() {
-        /**
-         * This should live in FlightListHelper. Not here.
-         * Edit: and now it does.
-         * Edit: and now it is broken. Putting it back. Figure it out later.
-         * Edit: if you are gonna use try catches, LOG WHEN YOU CATCH AN ERROR!
-         * turns out I was casting to a TudoCursorWrapper where such things aren't allowed.
-         */
-//        AirlineCursorWrapper cursor = queryFlights(null,null);
-//        List<Flight> todos = new ArrayList<>();
-//
-//        try{
-//            cursor.moveToFirst();
-//            while(!cursor.isAfterLast()){
-//                todos.add(cursor.getFlight());
-//                cursor.moveToNext();
-//            }
-//        }finally{
-//                cursor.close();
-//        }
-//        return todos;
         return  mAirlineHelper.getFlights();
     }
 
@@ -100,7 +75,7 @@ public class FlightList {
         mAirlineHelper.deleteFlight(id);
     }
 
-    @Deprecated //SHould call query DB directly from the helper
+    @Deprecated //Should call query DB directly from the helper
     private AirlineCursorWrapper queryFlights(String whereClause, String[] whereArgs) {
         Cursor cursor = mAirlineHelper.queryFlightsDB(AirlineDbSchema.FlightTable.NAME,whereClause, whereArgs);
         return new AirlineCursorWrapper(cursor);
@@ -113,6 +88,8 @@ public class FlightList {
         values.put(AirlineDbSchema.FlightTable.Cols.ARRIVAL, flight.getArrival());
         values.put(AirlineDbSchema.FlightTable.Cols.TIME, flight.getTime());
         values.put(AirlineDbSchema.FlightTable.Cols.PRICE, flight.getPrice());
+        values.put(AirlineDbSchema.FlightTable.Cols.CAPACITY, flight.getCapacity());
+        values.put(AirlineDbSchema.FlightTable.Cols.SEATS, flight.getSeats());
         return values;
     }
 }
