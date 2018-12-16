@@ -85,7 +85,6 @@ public class CancelReservationActivity extends AppCompatActivity {
         errorMsg.show();
     }
 
-    // TODO: Should display reservation price
     public void displayConfirmation(Reservation cancelReservation) {
         final Reservation reservation = cancelReservation;
         final Reservation cancellation = new Reservation(reservation);

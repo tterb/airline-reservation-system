@@ -71,7 +71,6 @@ public class SearchResultActivity extends Activity {
         });
     }
 
-    // TODO: Allowing more to be tickets to be reserved than are available
     public void displaySeatCountDialog(Flight targetFlight) {
         final Flight flight = targetFlight;
         AlertDialog countDialog = new AlertDialog.Builder(this).create();
